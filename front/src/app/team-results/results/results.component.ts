@@ -26,7 +26,7 @@ import { TeamPool } from './pool';
   templateUrl: './results.component.html',
   providers: [ResultRepository],
 })
-export default class RankingsVisualizer {
+export class ResultsComponent {
   readonly teamId = input.required<TeamId>();
   readonly #resultRepository = inject(ResultRepository);
 

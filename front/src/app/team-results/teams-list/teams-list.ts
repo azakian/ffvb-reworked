@@ -11,7 +11,7 @@ import { SkeletonComponent } from '../component/skeleton';
   templateUrl: './teams-list.html',
   providers: [TeamsRepository],
 })
-export default class TeamsList {
+export class TeamsList {
   private readonly teamRepository = inject(TeamsRepository);
 
   public readonly teamsResource = rxResource({

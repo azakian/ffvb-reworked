@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './team-details.component.html',
   providers: [TeamDetailsRepository],
 })
-export default class TeamDetailsComponent {
+export class TeamDetailsComponent {
   readonly teamId = input.required<TeamId>();
   readonly #teamDetailsRepository = inject(TeamDetailsRepository);
 

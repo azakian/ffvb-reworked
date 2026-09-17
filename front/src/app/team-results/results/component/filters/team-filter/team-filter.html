@@ -1,0 +1,19 @@
+<div class="filter-pill">
+  <span class="label">Équipe</span>
+  <div class="select-wrapper">
+    <select [(ngModel)]="filterTeam">
+      @for (t of allTeams(); track t) {
+        <option [value]="t">{{ t }}</option>
+      }
+    </select>
+    <svg class="chevron" width="12" height="12" viewBox="0 0 14 14" fill="none">
+      <path
+        d="M3 5l4 4 4-4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+</div>

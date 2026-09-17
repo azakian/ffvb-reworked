@@ -1,0 +1,63 @@
+<div class="screen-container">
+  <!-- Top nav button -->
+  <div class="top-nav">
+    <button [routerLink]="`..`" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M10 4L6 8l4 4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      Équipe
+    </button>
+  </div>
+
+  <div class="title-section">
+    <h1 class="main-title">
+      Matchs &amp; Classement -
+      {{ teamResultResource.value() ? teamResultResource.value()!.pool.label : '' }}
+    </h1>
+  </div>
+
+  @if (teamResultResource.isLoading()) {
+    <div class="skeleton-wrapper">
+      <app-skeleton [height]="38" width="200px" [radius]="10" />
+      <app-skeleton [height]="11" width="80px" [radius]="4" />
+      <div class="tabs-skeleton">
+        @for (i of [1, 2, 3, 4, 5]; track i) {
+          <app-skeleton width="48px" [height]="34" [radius]="20" />
+        }
+      </div>
+      @for (i of [1, 2, 3, 4, 5]; track i) {
+        <app-skeleton [height]="68" [radius]="13" />
+      }
+      <app-skeleton [height]="11" width="120px" [radius]="4" />
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <app-skeleton [height]="46" [radius]="0" />
+      }
+    </div>
+  } @else if (teamResultResource.value(); as results) {
+    <!-- Filters Bar -->
+    <div class="filters-bar">
+      <!-- Season Filter -->
+      <app-season-filter [allSeasons]="allSeasons()" [(filterSeason)]="filterSeason" />
+
+      <!-- Team Filter -->
+      <app-team-filter [allTeams]="allTeams()" [(filterTeam)]="filterTeam" />
+    </div>
+
+    <!-- MATCHES SECTION -->
+    <app-games
+      [vblTeamName]="results.teamLabel"
+      [filterTeam]="filterTeam()"
+      [previousGame]="results.previousGame"
+      [gamesByWeek]="results.games"
+    />
+
+    <!-- STANDINGS SECTION -->
+    <app-ranking [pool]="filterSeason()" [rankings]="results.rankings" />
+  }
+</div>

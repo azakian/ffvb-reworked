@@ -1,0 +1,48 @@
+<!-- Journée Carousel Controls -->
+<div class="journee-nav">
+  <button (click)="prevJournee()" [disabled]="currentWeekIndex() === 0" class="nav-arrow">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path
+        d="M10 4L6 8l4 4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+
+  <div class="j-scroll-container">
+    @for (j of allWeeks(); track j.week; let i = $index) {
+      @let hasMatches = j.games.length > 0;
+      @let isPlayed = j.games.some((m) => m.isPlayed);
+
+      <button
+        #jBtn
+        (click)="currentWeekIndex.set(i)"
+        class="j-btn"
+        [class.active]="currentWeekIndex() === i"
+        [class.played]="isPlayed"
+        [class.disabled-opacity]="!hasMatches"
+      >
+        {{ j.week }}
+      </button>
+    }
+  </div>
+
+  <button
+    (click)="nextJournee()"
+    [disabled]="currentWeekIndex() === allWeeks().length - 1"
+    class="nav-arrow"
+  >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path
+        d="M6 4l4 4-4 4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+</div>

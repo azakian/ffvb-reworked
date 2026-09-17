@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node set-env.js && ng serve",
+    "build": "node set-env.js && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "format": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
+    "format": "prettier --write \"src/**/*.{ts,html,scss,json}\" \"../data-extractor/**/*.{ts,html,scss,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,scss,json}\""
   },
   "prettier": {
@@ -32,6 +32,7 @@
     "@angular/forms": "^22.1.4",
     "@angular/platform-browser": "^22.1.4",
     "@angular/router": "^22.1.4",
+    "@supabase/supabase-js": "^2.116.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -40,7 +41,9 @@
     "@angular/cli": "^22.1.6",
     "@angular/compiler-cli": "^22.1.4",
     "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.3",
     "angular-eslint": "22.2.0",
+    "dotenv": "^17.4.2",
     "eslint": "^10.9.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",

@@ -1,0 +1,14 @@
+<div class="section-block">
+  <p class="section-title">Matchs</p>
+
+  @if (viewMode() === 'all-teams') {
+    <app-week-navigation [allWeeks]="gamesByWeek()" [(currentWeekIndex)]="currentWeekIndex" />
+
+    <!-- Match Cards -->
+    @let weekGames = gamesByWeekWithDetails()[currentWeekIndex()];
+    @let gamesWithDetails = weekGames.games;
+    <app-games-table [games]="gamesWithDetails" />
+  } @else {
+    <app-games-table [games]="filteredTeamGames()" />
+  }
+</div>

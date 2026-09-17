@@ -1,0 +1,180 @@
+.section-block {
+  padding: 24px 24px 0;
+
+  &.standings-block { padding-top: 28px; }
+
+  .section-title {
+    margin: 0 0 12px;
+    color: var(--text-3);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+/* Standings Table */
+.standings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+
+  .section-title { margin-bottom: 0; }
+  .season-tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); }
+}
+
+.table-container {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+
+  .table-grid {
+    display: grid;
+    grid-template-columns: 26px 1fr 36px 26px 52px 20px;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .table-header {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+
+    span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  }
+
+  .table-row-group {
+    border-top: 1px solid var(--border);
+    &:first-of-type { border-top: none; }
+
+    .table-row-btn {
+      width: 100%;
+      background: var(--surface);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      transition: background 0.15s;
+
+      &.expanded { background: var(--surface-2); }
+
+      .table-row {
+        padding: 12px 14px;
+
+        .rank {
+          font-family: var(--font-mono);
+          font-size: 12px;
+          color: var(--text-2);
+          font-weight: 400;
+          &.top { color: var(--accent); font-weight: 600; }
+        }
+
+        .team-name { font-size: 13px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pts { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text); }
+        .played { font-family: var(--font-mono); font-size: 12px; color: var(--text-2); }
+        .vd {
+          font-family: var(--font-mono);
+          font-size: 11px;
+          .win { color: var(--win); }
+          .dash { color: var(--text-3); }
+          .loss { color: var(--loss); }
+        }
+
+        .arrow-icon {
+          color: var(--text-3);
+          display: flex;
+          justify-content: center;
+          transition: transform 0.2s;
+
+          &.rotated { transform: rotate(180deg); }
+        }
+      }
+    }
+
+    .detail-box {
+      background: var(--surface-3);
+      border-top: 1px solid var(--border);
+      padding: 14px 14px 16px;
+
+      .detail-title {
+        margin: 0 0 10px;
+        color: var(--text-3);
+        font-size: 9px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        font-family: var(--font-mono);
+      }
+
+      .detail-group {
+        margin-bottom: 8px;
+        &:last-child { margin-bottom: 0; }
+
+        .group-label {
+          margin: 0 0 5px;
+          font-size: 9px;
+          font-family: var(--font-mono);
+          letter-spacing: 0.07em;
+          text-transform: uppercase;
+
+          &.win { color: var(--win); }
+          &.loss { color: var(--loss); }
+          &.muted { color: var(--text-3); }
+        }
+
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 6px;
+
+          .stat-card {
+            text-align: center;
+            border-radius: 9px;
+            padding: 8px 4px;
+
+            &.win {
+              background: var(--win-bg);
+              border: 1px solid rgba(34, 197, 94, 0.15);
+              .val { color: var(--win); }
+              .lbl { color: rgba(34, 197, 94, 0.6); }
+            }
+
+            &.loss {
+              background: var(--loss-bg);
+              border: 1px solid rgba(244, 63, 94, 0.15);
+              .val { color: var(--loss); }
+              .lbl { color: rgba(244, 63, 94, 0.6); }
+            }
+
+            &.surface {
+              background: var(--surface-2);
+              .val { color: var(--text); }
+              .val.win { color: var(--win); }
+              .val.loss { color: var(--loss); }
+              .val.accent { color: var(--accent); }
+              .lbl { color: var(--text-3); }
+            }
+
+            .val {
+              font-family: var(--font-mono);
+              font-size: 17px;
+              font-weight: 700;
+            }
+
+            .lbl {
+              font-family: var(--font-mono);
+              font-size: 9px;
+              margin-top: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

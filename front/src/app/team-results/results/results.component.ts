@@ -42,6 +42,13 @@ export default class RankingsVisualizer {
   });
   readonly filterTeam = signal<string>('Toutes');
 
+  readonly teamToHighlight = computed(() => {
+    const currentTeam = this.filterTeam();
+    return currentTeam === 'Toutes'
+      ? (this.teamResultResource.value()?.teamLabel ?? '')
+      : currentTeam;
+  });
+
   readonly teamResultResource = rxResource({
     params: () => {
       const teamId = this.teamId();

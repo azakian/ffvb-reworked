@@ -15,7 +15,7 @@ export class GamesTable {
         isTeam2: boolean;
         isWon: boolean;
         isLost: boolean;
-        isPlanned: boolean;
+        highlight: boolean;
       };
     })[]
   >();

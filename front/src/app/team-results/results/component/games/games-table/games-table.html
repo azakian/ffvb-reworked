@@ -11,7 +11,7 @@
         class="match-card"
         [class.highlight-win]="game.gameDetail.isWon"
         [class.highlight-loss]="game.gameDetail.isLost"
-        [class.highlight-not-played]="game.gameDetail.isPlanned"
+        [class.highlight-not-played]="game.gameDetail.highlight"
       >
         <!-- Grid Teams & Main Score -->
         <div class="grid-match">
@@ -29,7 +29,8 @@
                 {{ game.scores!.team1Score }} – {{ game.scores!.team2Score }}
               </span>
             } @else {
-              <span class="time-val">{{ game.time }}</span>
+              <span class="time-val">{{ game.date }}</span>
+<!--              <span class="time-val">À venir</span>-->
             }
           </div>
 
@@ -64,7 +65,8 @@
         }
 
         @if (!game.isPlayed) {
-          <p class="upcoming">À venir</p>
+          <p class="upcoming">{{game.time}}</p>
+          <!--              <span class="time-val">{{ game.time }}</span>-->
         }
       </div>
     }

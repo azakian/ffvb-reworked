@@ -2,6 +2,7 @@ import { Component, computed, input, linkedSignal } from '@angular/core';
 import { Game, WeekGames } from '../../../shared/game';
 import { WeekNavigation } from './week-navigation/week-navigation';
 import { GamesTable } from './games-table/games-table';
+import { checkTeamName } from '../../team.utils';
 
 @Component({
   imports: [WeekNavigation, GamesTable],
@@ -40,7 +41,7 @@ export class GamesComponent {
   readonly gamesByWeekWithDetails = computed(() => {
     return this.gamesByWeek().map((gameByWeek) => {
       const games = gameByWeek.games.map((game) =>
-        this.convertToGameWithDetail(this.vblTeamName(), game),
+        this.convertToGameWithDetail(this.vblTeamName(), game, this.viewMode()),
       );
       return { week: gameByWeek.week, games };
     });
@@ -50,29 +51,30 @@ export class GamesComponent {
     return this.gamesByWeek()
       .flatMap((weekGames) => weekGames.games)
       .filter((game) => this.isTeamGame(this.filterTeam(), game.team1Name, game.team2Name))
-      .map((game) => this.convertToGameWithDetail(this.filterTeam(), game));
+      .map((game) => this.convertToGameWithDetail(this.filterTeam(), game, this.viewMode()));
   });
 
-  private convertToGameWithDetail(teamName: string, game: Game) {
+  private convertToGameWithDetail(
+    teamName: string,
+    game: Game,
+    viewMode: 'all-teams' | 'single-team',
+  ) {
     const isPlayed = game.isPlayed;
-    const isTeam1 = this.checkTeam(teamName, game.team1Name);
-    const isTeam2 = this.checkTeam(teamName, game.team2Name);
-    const highlight = isTeam1 || isTeam2;
+    const isTeam1 = checkTeamName(teamName, game.team1Name);
+    const isTeam2 = checkTeamName(teamName, game.team2Name);
+    const isTeamGame = isTeam1 || isTeam2;
+
     const isWon =
-      highlight &&
+      isTeamGame &&
       ((isPlayed && isTeam1 && (game.scores?.team1Score ?? 0) > (game.scores?.team2Score ?? 0)) ||
         (isTeam2 && (game.scores?.team2Score ?? 0) > (game.scores?.team1Score ?? 0)));
-    const isLost = isPlayed && highlight && !isWon;
-    const isPlanned = !isPlayed && highlight;
+    const isLost = isPlayed && isTeamGame && !isWon;
+    const highlight = !isPlayed && isTeamGame && viewMode === 'all-teams';
 
-    return { ...game, gameDetail: { isTeam1, isTeam2, isWon, isLost, isPlanned } };
-  }
-
-  private checkTeam(teamName: string, gameName: string): boolean {
-    return teamName.localeCompare(gameName, undefined, { sensitivity: 'base' }) === 0;
+    return { ...game, gameDetail: { isTeam1, isTeam2, isWon, isLost, highlight } };
   }
 
   private isTeamGame(teamName: string, team1Name: string, team2Name: string): boolean {
-    return this.checkTeam(teamName, team1Name) || this.checkTeam(teamName, team2Name);
+    return checkTeamName(teamName, team1Name) || checkTeamName(teamName, team2Name);
   }
 }

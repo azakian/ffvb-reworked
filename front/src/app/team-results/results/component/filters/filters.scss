@@ -2,6 +2,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  width: 250px; /* 1. Set your fixed width here */
+  box-sizing: border-box;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -13,14 +15,18 @@
     font-family: var(--font-mono);
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    white-space: nowrap; /* Prevents label text from wrapping */
   }
 
   .select-wrapper {
     position: relative;
     display: flex;
     align-items: center;
+    flex: 1; /* 2. Takes up all remaining width inside the pill */
+    min-width: 0; /* Prevents text overflow breaking the layout */
 
     select {
+      width: 100%; /* 3. Fills the select-wrapper width */
       background: none;
       border: none;
       outline: none;
@@ -31,6 +37,7 @@
       cursor: pointer;
       appearance: none;
       padding-right: 18px;
+      text-overflow: ellipsis; /* Truncates text if it exceeds width */
     }
 
     .chevron {

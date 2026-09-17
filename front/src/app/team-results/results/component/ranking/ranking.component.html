@@ -17,6 +17,7 @@
           (click)="toggleRow(team.teamRanking)"
           class="table-row-btn"
           [class.expanded]="expandedRow() === team.teamRanking"
+          [class.highlight]="checkTeamName(teamToHighlight(), team.teamLabel)"
         >
           <div class="table-grid table-row">
             <span class="rank" [class.top]="team.teamRanking <= 2">{{ team.teamRanking }}</span>

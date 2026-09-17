@@ -1,0 +1,72 @@
+<div class="matches-list">
+  @if (games().length === 0) {
+    <div class="empty-card">
+      <p>Journée non programmée</p>
+    </div>
+  } @else if (games().length === 0) {
+    <p class="empty-matches">Aucun match pour cette sélection.</p>
+  } @else {
+    @for (game of games(); track $index) {
+      <div
+        class="match-card"
+        [class.highlight-win]="game.gameDetail.isWon"
+        [class.highlight-loss]="game.gameDetail.isLost"
+        [class.highlight-not-played]="game.gameDetail.isPlanned"
+      >
+        <!-- Grid Teams & Main Score -->
+        <div class="grid-match">
+          <p class="team-name home" [class.is-my-team]="game.gameDetail.isTeam1">
+            {{ game.team1Name }}
+          </p>
+
+          <div class="score-center">
+            @if (game.isPlayed) {
+              <span
+                class="score-val"
+                [class.win]="game.gameDetail.isWon"
+                [class.loss]="game.gameDetail.isLost"
+              >
+                {{ game.scores!.team1Score }} – {{ game.scores!.team2Score }}
+              </span>
+            } @else {
+              <span class="time-val">{{ game.time }}</span>
+            }
+          </div>
+
+          <p class="team-name away" [class.is-my-team]="game.gameDetail.isTeam2">
+            {{ game.team2Name }}
+          </p>
+        </div>
+
+        <!-- Sets Subtitle -->
+        @if (game.isPlayed && game.setsScore && game.setsScore.allScore.length > 0) {
+          <!--                <div class="sets-row">-->
+          <!--                  @for (set of m.sets; track $index; let si = $index) {-->
+          <!--                    @let isLast5 = m.sets.length === 5 && si === 4;-->
+          <!--                    @let homeWon = set[0] > set[1];-->
+
+          <!--                    <span-->
+          <!--                      class="set-score"-->
+          <!--                      [class.fifth-set]="isLast5"-->
+          <!--                      [class.win]="homeWon"-->
+          <!--                      [class.loss]="!homeWon"-->
+          <!--                    >-->
+          <!--                      {{ set[0] }}-{{ set[1] }}-->
+          <!--                      @if (si < m.sets.length - 1) {-->
+          <!--                        <span class="slash">/</span>-->
+          <!--                      }-->
+          <!--                    </span>-->
+          <!--                  }-->
+          <!--                </div>-->
+          <p class="sets-summary">
+            {{ game.setsScore.allScore.join(' / ') }}
+          </p>
+        }
+
+        @if (!game.isPlayed) {
+          <p class="upcoming">À venir</p>
+        }
+      </div>
+    }
+  }
+</div>

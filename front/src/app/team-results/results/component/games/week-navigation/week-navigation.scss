@@ -1,0 +1,62 @@
+/* Journée Carousel */
+.journee-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+
+  .nav-arrow {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s;
+
+    &:disabled {
+      cursor: default;
+      color: var(--text-3);
+      opacity: 0.4;
+    }
+  }
+
+  .j-scroll-container {
+    flex: 1;
+    overflow-x: auto;
+    display: flex;
+    gap: 5px;
+    scroll-behavior: smooth; /* Ensures smooth horizontal sliding */
+
+    .j-btn {
+      flex-shrink: 0;
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text-3);
+      font-size: 12px;
+      font-weight: 400;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.15s;
+
+      &.played { color: var(--text-2); }
+
+      &.active {
+        border: none;
+        background: var(--accent);
+        color: var(--bg);
+        font-weight: 700;
+        opacity: 1 !important;
+      }
+
+      &.disabled-opacity { opacity: 0.45; }
+    }
+  }
+}

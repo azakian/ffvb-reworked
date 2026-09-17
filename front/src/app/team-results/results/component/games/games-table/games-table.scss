@@ -1,0 +1,128 @@
+/* Match Cards */
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .empty-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    p { margin: 0; font-size: 13px; color: var(--text-3); }
+  }
+
+  .empty-matches {
+    color: var(--text-3);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px 0;
+  }
+
+  .match-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 13px 16px;
+    transition: all 0.15s;
+
+    &.highlight-win {
+      background: var(--win-bg);
+      border-color: var(--win);
+    }
+
+    &.highlight-loss {
+      background: var(--loss-bg);
+      border-color: var(--loss);
+    }
+
+    &.highlight-not-played {
+      border-color: var(--text);
+    }
+
+    .grid-match {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+
+      .team-name {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-2);
+        &.home { text-align: right; }
+        &.away { text-align: left; }
+
+        &.is-my-team {
+          font-weight: 700;
+          color: var(--text);
+        }
+      }
+
+      .score-center {
+        text-align: center;
+        min-width: 58px;
+
+        .score-val {
+          font-family: var(--font-mono);
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--text);
+
+          &.win { color: var(--win); }
+          &.loss { color: var(--loss); }
+        }
+
+        .time-val {
+          font-family: var(--font-mono);
+          font-size: 12px;
+          color: var(--accent);
+          font-weight: 500;
+        }
+      }
+    }
+
+    .sets-row {
+      margin-top: 7px;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+
+      .set-score {
+        font-family: var(--font-mono);
+        font-size: 10px;
+
+        &.win { color: var(--win); }
+        &.loss { color: var(--loss); }
+        &.fifth-set { color: var(--text-3); opacity: 0.7; }
+
+        .slash {
+          color: var(--surface-3);
+          margin: 0 1px;
+        }
+      }
+    }
+
+    .sets-summary {
+      margin: 6px 0 0;
+      text-align: center;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-2);
+      letter-spacing: 0.03em;
+    }
+
+    .upcoming {
+      margin: 5px 0 0;
+      text-align: center;
+      font-size: 9px;
+      color: var(--text-3);
+      font-family: var(--font-mono);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+  }
+}

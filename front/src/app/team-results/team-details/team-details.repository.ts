@@ -1,10 +1,10 @@
-import { inject, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TeamId } from '../shared/teamId';
 import { from, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { SUPABASE_CLIENT } from '../../core/supabase';
 import { convertToTeamDetails, ExternalTeamDetails, TeamDetails } from './team-details';
 
-@Service()
+@Injectable()
 export class TeamDetailsRepository {
   private readonly supabase = inject(SUPABASE_CLIENT);
 

@@ -1,0 +1,95 @@
+// Variables SCSS (tu peux aussi utiliser les variables CSS :root de ton projet)
+$topbar-height: 52px;
+$breakpoint-desktop: 1100px; // Le breakpoint utilisé dans le code React
+
+.dashboard-layout {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  // Assure-toi que --font-ui est définie dans ton styles.scss global
+  font-family: var(--font-ui, 'Outfit', sans-serif);
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    height: $topbar-height;
+    background: rgba(12, 12, 14, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  // --- VUE MOBILE (Par défaut) ---
+  .main-grid {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 20px 16px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    // Note pour Angular :
+    // Sur mobile, tu devras gérer l'affichage conditionnel de ces colonnes
+    // avec des *ngIf dans ton HTML basé sur un state (ex: activeScreen).
+  }
+
+  // --- VUE DESKTOP ---
+  @media (min-width: $breakpoint-desktop) {
+    .topbar {
+      position: fixed; // Fixe sur desktop
+      left: 0;
+      right: 0;
+      padding: 0 28px;
+    }
+
+    .main-grid {
+      // On retire les styles mobiles
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      gap: 0;
+      display: grid;
+
+      // On décale le contenu sous la topbar fixed
+      //padding-top: $topbar-height;
+
+      // La magie du GRID : Colonne 1 (260px) | Colonne 2 (380px) | Colonne 3 (Le reste)
+      grid-template-columns: 350px 1fr;
+
+      // On bloque la hauteur pour avoir un scroll interne dans les colonnes
+      //grid-template-rows: calc(100vh - #{$topbar-height});
+      height: 100vh;
+    }
+
+    // Styles communs aux 3 panneaux (Scroll individuel)
+    .col-panel {
+      overflow-y: auto;
+
+      // Masquer les scrollbars pour un design épuré
+      scrollbar-width: none; // Firefox
+      &::-webkit-scrollbar {
+        display: none; // Chrome/Safari
+      }
+    }
+
+    // Styles spécifiques par colonne
+    .col-teams {
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col-summary {
+      border-right: 1px solid var(--border);
+      padding: 24px 20px;
+    }
+
+    .col-matches {
+      padding: 24px 20px;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@if (!isPhoneDevice()) {
+  <div class="dashboard-layout">
+    <!-- Topbar -->
+    <!--    <header class="topbar">-->
+    <!--      <div class="topbar-content">-->
+    <!--        &lt;!&ndash; Ton composant topbar &ndash;&gt;-->
+    <!--      </div>-->
+    <!--    </header>-->
+
+    <!-- Grille principale -->
+    <main class="main-grid">
+      <!-- Colonne 1 : Liste des équipes -->
+      <aside class="col-panel col-teams">
+        <app-team-select [(selectedTeam)]="selectedTeamId" />
+      </aside>
+
+      @if (selectedTeamId(); as teamId) {
+        <!-- Colonne 3 : Calendrier & Classement -->
+        <section class="col-panel col-matches">
+          <app-results [teamId]="teamId" [isPhoneDevice]="isPhoneDevice()" />
+        </section>
+      }
+    </main>
+  </div>
+} @else {
+  <app-teams-list-shell />
+}

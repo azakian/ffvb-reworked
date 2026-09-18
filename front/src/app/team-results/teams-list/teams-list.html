@@ -32,7 +32,11 @@
 
     <div class="team-list">
       @for (team of presentation.teamDescriptions; track team.teamShortName) {
-        <button [routerLink]="team.teamShortName" class="team-card">
+        <button
+          (click)="selectedTeam.set(team.teamShortName)"
+          class="team-card"
+          [class.highlight]="this.selectedTeam() === team.teamShortName"
+        >
           <div class="card-content">
             <div class="info flex-1">
               <div class="header-row">

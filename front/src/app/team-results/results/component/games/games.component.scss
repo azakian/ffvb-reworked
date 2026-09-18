@@ -1,7 +1,17 @@
 .section-block {
+  /* --- STYLE MOBILE (Inchangé) --- */
   padding: 24px 24px 0;
+  width: 100%;
 
-  &.standings-block { padding-top: 28px; }
+  /* --- DESKTOP (≥ 768px) --- */
+  @media (min-width: 768px) {
+    //padding: 0;
+    //min-width: 0;
+  }
+
+  &.standings-block {
+    padding-top: 28px;
+  }
 
   .section-title {
     margin: 0 0 12px;
@@ -12,4 +22,3 @@
     text-transform: uppercase;
   }
 }
-

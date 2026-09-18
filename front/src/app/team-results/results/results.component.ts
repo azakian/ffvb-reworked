@@ -2,7 +2,6 @@ import { Component, computed, effect, inject, input, linkedSignal, signal } from
 import { rxResource } from '@angular/core/rxjs-interop';
 import { TeamId } from '../shared/teamId';
 import { ResultRepository } from './result.repository';
-import { RouterLink } from '@angular/router';
 import { SkeletonComponent } from '../component/skeleton';
 import { FormsModule } from '@angular/forms';
 import { SeasonFilter } from './component/filters/season-filter/season-filter';
@@ -10,6 +9,7 @@ import { TeamFilter } from './component/filters/team-filter/team-filter';
 import { RankingComponent } from './component/ranking/ranking.component';
 import { GamesComponent } from './component/games/games.component';
 import { TeamPool } from './pool';
+import { RouterLink } from '@angular/router';
 
 @Component({
   imports: [
@@ -20,6 +20,7 @@ import { TeamPool } from './pool';
     TeamFilter,
     RankingComponent,
     GamesComponent,
+    RouterLink,
   ],
   selector: 'app-results',
   styleUrl: './results.component.scss',
@@ -28,6 +29,7 @@ import { TeamPool } from './pool';
 })
 export class ResultsComponent {
   readonly teamId = input.required<TeamId>();
+  readonly isPhoneDevice = input.required<boolean>();
   readonly #resultRepository = inject(ResultRepository);
 
   readonly teamPoolsResource = rxResource({

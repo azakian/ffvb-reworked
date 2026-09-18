@@ -1,5 +1,8 @@
 .screen-container {
   padding-bottom: 48px;
+  @media (min-width: 768px) {
+    padding: 0
+  }
 }
 
 .top-nav {
@@ -45,6 +48,26 @@
   gap: 8px;
 }
 
+/* Grille réactive pour les sections Ranking & Games */
+.content-grid {
+  /* --- STYLE MOBILE (Inchangé) --- */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* --- DESKTOP (≥ 768px) --- */
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1/3 Classement, 2/3 Matchs */
+    align-items: start;
+    padding: 16px 24px 0;
+
+    /* Empêche le carrousel de déformer les colonnes en desktop */
+    > * {
+      min-width: 0;
+    }
+  }
+}
 
 .skeleton-wrapper {
   padding: 20px 24px 0;

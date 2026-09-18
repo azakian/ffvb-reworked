@@ -101,8 +101,12 @@
     width: 100%;
     transition: border-color 0.15s, background 0.15s;
 
+    &.highlight {
+      border: 1px solid var(--accent);
+    }
+
     &:hover {
-      border-color: var(--border-strong);
+      border-color: var(--accent);
       background: var(--surface-2);
     }
 

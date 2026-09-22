@@ -101,12 +101,12 @@
 
         <div class="results-list">
           @for (r of lastGames(); track $index) {
-            @let teamSetsScore = r.teamSetScores ?? [];
-            @let isFifthSet = teamSetsScore.length === 5;
+            @let setsScore = r.validSets ?? [];
+            @let isFifthSet = setsScore.length === 5;
 
             <div class="result-card">
               <!-- Top row: badge + opponent + score global -->
-              <div class="top-row" [class.has-sets]="teamSetsScore.length > 0">
+              <div class="top-row" [class.has-sets]="setsScore.length > 0">
                 <div class="opponent-info">
                   <span class="result-badge" [class.win]="r.isWin" [class.loss]="!r.isWin">
                     {{ r.isWin ? 'V' : 'D' }}
@@ -123,24 +123,31 @@
               </div>
 
               <!-- Sets row -->
-              @let opponentSetScores = r.opponentSetScores;
-              @if (teamSetsScore.length > 0) {
+              @if (setsScore.length > 0) {
                 <div class="sets-row">
-                  @for (setScore of teamSetsScore; track $index; let si = $index) {
-                    @let opponentSetScore = opponentSetScores[si];
+                  @for (setScore of setsScore; track $index; let si = $index) {
+                    @let scores = setScore.split(':');
+                    @let homeScore = +scores[0];
+                    @let awayScore = +scores[1];
+
                     @let isLast = isFifthSet && si === 4;
-                    @let teamWonSet = setScore > opponentSetScore;
+                    @let teamWonSet = r.isHome ? homeScore > awayScore : awayScore > homeScore;
 
                     <div class="set-chip" [class.is-fifth-set]="isLast">
-                      <span class="score-home" [class.won]="teamWonSet">{{ setScore }}</span>
-                      <span class="separator">–</span>
-                      <span class="score-away" [class.lost]="!teamWonSet">
-                        {{ opponentSetScore }}
+                      <span
+                        class="score"
+                        [class.won]="r.isHome && teamWonSet"
+                        [class.lost]="r.isHome && !teamWonSet"
+                      >
+                        {{ homeScore }}
                       </span>
-
-                      @if (isLast) {
-                        <span class="tie-badge">tie</span>
-                      }
+                      <span
+                        class="score"
+                        [class.won]="!r.isHome && teamWonSet"
+                        [class.lost]="!r.isHome && !teamWonSet"
+                      >
+                        {{ awayScore }}
+                      </span>
                     </div>
                   }
                 </div>

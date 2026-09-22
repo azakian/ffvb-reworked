@@ -294,7 +294,7 @@
           line-height: 1;
         }
 
-        .score-home {
+        .score {
           padding: 3px 6px;
           color: var(--text-3);
           font-weight: 400;
@@ -304,20 +304,12 @@
             font-weight: 600;
             background: var(--win-bg);
           }
-        }
-
-        .score-away {
-          padding: 3px 6px;
-          color: var(--text-3);
-          font-weight: 400;
-
           &.lost {
             color: var(--loss);
             font-weight: 600;
             background: var(--loss-bg);
           }
         }
-
         .tie-badge {
           position: absolute;
           bottom: -1px;

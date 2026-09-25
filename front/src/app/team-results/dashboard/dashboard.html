@@ -11,7 +11,7 @@
     <main class="main-grid">
       <!-- Colonne 1 : Liste des équipes -->
       <aside class="col-panel col-teams">
-        <app-team-select [(selectedTeam)]="selectedTeamId" />
+        <app-team-select [isPhoneDevice]="isPhoneDevice()" [(selectedTeam)]="selectedTeamId" />
       </aside>
 
       @if (selectedTeamId(); as teamId) {

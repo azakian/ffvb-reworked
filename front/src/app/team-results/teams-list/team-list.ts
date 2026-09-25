@@ -1,15 +1,6 @@
 import { TeamId } from '../shared/teamId';
-
-export interface ExternalTeam {
-  team_id: number;
-  team_name: string;
-  short_name: string;
-  pool_label: string;
-  season_phase: number;
-  years: string;
-  team_ranking: number;
-  points: number;
-}
+import { ExternalGame } from '../shared/external';
+import { convertToGame, Game } from '../shared/game';
 
 export interface ExternalTeamDescription {
   team_id: number;
@@ -22,6 +13,8 @@ export interface ExternalTeamDescription {
   points: number;
   won: number;
   lost: number;
+  last_game: ExternalGame | null;
+  next_game: ExternalGame | null;
 }
 
 export interface TeamDescription {
@@ -32,28 +25,9 @@ export interface TeamDescription {
   currentPoints: number;
   currentWon: number;
   currentLost: number;
+  lastGame: Game | null;
+  nextGame: Game | null;
 }
-
-export interface Team {
-  teamId: number;
-  teamName: string;
-  teamShortName: string;
-  currentPoolLabel: string;
-  currentRanking: number;
-}
-
-export const convertToTeams = (externalTeams: ExternalTeam[]): Team[] =>
-  externalTeams.map(convertToTeam);
-
-const convertToTeam = (externalTeam: ExternalTeam): Team => {
-  return {
-    teamId: externalTeam.team_id,
-    teamName: externalTeam.team_name,
-    teamShortName: externalTeam.short_name,
-    currentPoolLabel: externalTeam.pool_label,
-    currentRanking: externalTeam.team_ranking,
-  };
-};
 
 export const convertToTeamDescriptions = (
   externalTeamDescription: ExternalTeamDescription[],
@@ -74,5 +48,7 @@ const convertToTeamDescription = (
     currentPoints: externalTeamDescription.points,
     currentWon: externalTeamDescription.won,
     currentLost: externalTeamDescription.lost,
+    lastGame: convertToGame(externalTeamDescription.last_game),
+    nextGame: convertToGame(externalTeamDescription.next_game),
   };
 };

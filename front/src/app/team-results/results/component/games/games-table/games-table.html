@@ -30,7 +30,7 @@
               </span>
             } @else {
               <span class="time-val">{{ game.date }}</span>
-<!--              <span class="time-val">À venir</span>-->
+              <!--              <span class="time-val">À venir</span>-->
             }
           </div>
 
@@ -41,31 +41,13 @@
 
         <!-- Sets Subtitle -->
         @if (game.isPlayed && game.setsScore && game.setsScore.allScore.length > 0) {
-          <!--                <div class="sets-row">-->
-          <!--                  @for (set of m.sets; track $index; let si = $index) {-->
-          <!--                    @let isLast5 = m.sets.length === 5 && si === 4;-->
-          <!--                    @let homeWon = set[0] > set[1];-->
-
-          <!--                    <span-->
-          <!--                      class="set-score"-->
-          <!--                      [class.fifth-set]="isLast5"-->
-          <!--                      [class.win]="homeWon"-->
-          <!--                      [class.loss]="!homeWon"-->
-          <!--                    >-->
-          <!--                      {{ set[0] }}-{{ set[1] }}-->
-          <!--                      @if (si < m.sets.length - 1) {-->
-          <!--                        <span class="slash">/</span>-->
-          <!--                      }-->
-          <!--                    </span>-->
-          <!--                  }-->
-          <!--                </div>-->
           <p class="sets-summary">
             {{ game.setsScore.allScore.join(' / ') }}
           </p>
         }
 
         @if (!game.isPlayed) {
-          <p class="upcoming">{{game.time}}</p>
+          <p class="upcoming">{{ game.time }}</p>
           <!--              <span class="time-val">{{ game.time }}</span>-->
         }
       </div>

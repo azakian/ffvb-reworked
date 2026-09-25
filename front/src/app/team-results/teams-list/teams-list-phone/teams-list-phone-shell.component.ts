@@ -6,7 +6,10 @@ import { TeamId } from '../../shared/teamId';
 @Component({
   imports: [TeamsList],
   selector: 'app-teams-list-shell',
-  template: `<app-team-select (selectedTeamChange)="navigateToTeam($event)" /> `,
+  template: `<app-team-select
+    [isPhoneDevice]="true"
+    (selectedTeamChange)="navigateToTeam($event)"
+  /> `,
 })
 export class TeamsListPhoneShell {
   readonly router = inject(Router);

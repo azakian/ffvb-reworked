@@ -18,5 +18,5 @@ export class Dashboard {
   readonly isPhoneDevice = toSignal(this.breakpointObserver.observeForPhone(), {
     initialValue: false,
   });
-  readonly selectedTeamId = signal<TeamId | null>(null);
+  selectedTeamId = signal<TeamId | null>(null);
 }

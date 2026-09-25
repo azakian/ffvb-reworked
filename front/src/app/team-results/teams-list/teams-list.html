@@ -68,5 +68,20 @@
         </button>
       }
     </div>
+    @if (isPhoneDevice()) {
+      @if (lastGames().length) {
+        <p class="section-label">Derniers résultats</p>
+        <div class="games-list">
+          <app-games-table [games]="lastGames()" />
+        </div>
+      }
+
+      @if (nextGames().length) {
+        <p class="section-label">Prochains matchs</p>
+        <div class="games-list">
+          <app-games-table [games]="nextGames()" />
+        </div>
+      }
+    }
   }
 </div>

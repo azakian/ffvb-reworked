@@ -10,7 +10,7 @@ export class TeamsRepository {
   public getTeams(): Observable<TeamDescription[]> {
     return from(
       this.supabase
-        .rpc('get_teams_list')
+        .rpc('get_teams_list2')
         .overrideTypes<ExternalTeamDescription[], { merge: false }>(),
     ).pipe(
       switchMap(({ data, error }) => {

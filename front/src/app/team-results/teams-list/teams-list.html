@@ -18,17 +18,17 @@
 
     @if (isPhoneDevice()) {
       <section class="games-summary">
-        @if (lastGames().length) {
-          <div>
-            <p class="section-label">Derniers résultats</p>
-            <app-games-table [games]="lastGames()" />
-          </div>
-        }
-
         @if (nextGames().length) {
           <div>
             <p class="section-label">Prochains matchs</p>
             <app-next-game-cards [nextGames]="nextGames()" />
+          </div>
+        }
+
+        @if (lastGames().length) {
+          <div>
+            <p class="section-label">Derniers résultats</p>
+            <app-games-table [games]="lastGames()" />
           </div>
         }
       </section>

@@ -43,6 +43,8 @@
   /* Fontes */
   --font-ui: 'Outfit', sans-serif;
   --font-mono: 'DM Mono', monospace;
+
+  --tablet-landscape: (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape);
 }
 
 * {

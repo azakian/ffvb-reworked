@@ -1,0 +1,34 @@
+<button
+  (click)="selectTeam.emit(team().teamShortName)"
+  class="team-card"
+  [class.highlight]="highlight()"
+>
+  <div class="card-content">
+    <div class="info flex-1">
+      <div class="header-row">
+        <span class="team-name">{{ team().teamName }}</span>
+        <span class="poule-badge">{{ team().currentPool.poolName }}</span>
+      </div>
+      <div class="stats-row">
+        <span class="rank">#{{ team().currentRanking }}</span>
+        <div class="divider"></div>
+        <div>
+          <div class="pts">{{ team().currentPoints }} pts</div>
+          <div class="record">
+            <span class="win">{{ team().currentWon }}V</span> –
+            <span class="loss">{{ team().currentLost }}D</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path
+        d="M6 4l4 4-4 4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+</button>

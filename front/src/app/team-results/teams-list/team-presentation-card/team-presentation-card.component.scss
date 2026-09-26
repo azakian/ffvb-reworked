@@ -1,0 +1,95 @@
+.team-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+
+  &.highlight {
+    border: 1px solid var(--accent);
+  }
+
+  &:hover {
+    border-color: var(--accent);
+    background: var(--surface-2);
+  }
+
+  .card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+
+    .team-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .poule-badge {
+      background: var(--surface-3);
+      color: var(--text-2);
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  .stats-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    .rank {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    .pts {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .record {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-2);
+      margin-top: 1px;
+
+      .win {
+        color: var(--win);
+      }
+      .loss {
+        color: var(--loss);
+      }
+    }
+  }
+
+  .chevron {
+    color: var(--text-3);
+    margin-left: 8px;
+  }
+}

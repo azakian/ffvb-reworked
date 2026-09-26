@@ -1,0 +1,106 @@
+.match-card {
+  background: linear-gradient(135deg, var(--match-card-bg-start), var(--match-card-bg-end));
+  border: 1px solid var(--accent-border);
+  border-radius: 18px;
+  padding: 18px 20px;
+
+  /* Alignement sur les cartes de résultats */
+  &.compact {
+    background: var(--surface);
+    border-color: var(--border);
+    border-radius: 13px;
+    padding: 13px 16px;
+
+    .grid-match {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+
+      .team-name {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-2);
+        &.home {
+          text-align: right;
+        }
+        &.away {
+          text-align: left;
+        }
+      }
+
+      .score-center {
+        text-align: center;
+        min-width: 58px;
+
+        .time-val {
+          font-family: var(--font-mono);
+          font-size: 12px;
+          color: var(--accent);
+          font-weight: 500;
+        }
+      }
+    }
+
+    .sets-summary {
+      margin: 6px 0 0;
+      text-align: center;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-2);
+      letter-spacing: 0.03em;
+    }
+  }
+
+  .match-date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .match-teams {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+
+    .team {
+      min-width: 0;
+
+      &.align-center {
+        text-align: center;
+      }
+
+      .name {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.35;
+        overflow-wrap: break-word;
+      }
+    }
+
+    .vs {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--text-2);
+      text-align: center;
+      user-select: none;
+    }
+  }
+
+  .venue {
+    margin: 10px 0 0;
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+}

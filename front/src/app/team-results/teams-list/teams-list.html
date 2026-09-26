@@ -79,7 +79,7 @@
       @if (nextGames().length) {
         <p class="section-label">Prochains matchs</p>
         <div class="games-list">
-          <app-games-table [games]="nextGames()" />
+          <app-next-game-cards [nextGames]="nextGames()" />
         </div>
       }
     }

@@ -1,0 +1,32 @@
+<div class="match-card" [class.compact]="compact()">
+  <div class="match-date">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <rect
+        x="1.5"
+        y="2.5"
+        width="11"
+        height="10"
+        rx="1.5"
+        stroke="currentColor"
+        stroke-width="1.3"
+      />
+      <path
+        d="M1.5 6h11M4.5 1v3M9.5 1v3"
+        stroke="currentColor"
+        stroke-width="1.3"
+        stroke-linecap="round"
+      />
+    </svg>
+    <span>{{ nextGame().date }} · {{ nextGame().time }}</span>
+  </div>
+  <div class="match-teams">
+    <div class="team align-center">
+      <p class="name">{{ nextGame().team1Name }}</p>
+    </div>
+    <span class="vs">vs</span>
+    <div class="team align-center">
+      <p class="name">{{ nextGame().team2Name }}</p>
+    </div>
+  </div>
+  <p class="venue">{{ nextGame().location }}</p>
+</div>

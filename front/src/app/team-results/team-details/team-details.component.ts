@@ -1,13 +1,14 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { NextGameCardComponent } from '../component/next-game-card/next-game-card.component';
 import { SkeletonComponent } from '../component/skeleton';
 import { Game } from '../shared/game';
 import { TeamId } from '../shared/teamId';
 import { TeamDetailsRepository } from './team-details.repository';
 
 @Component({
-  imports: [SkeletonComponent, RouterLink],
+  imports: [SkeletonComponent, RouterLink, NextGameCardComponent],
   selector: 'app-team',
   styleUrl: './team-details.component.scss',
   templateUrl: './team-details.component.html',

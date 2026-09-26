@@ -1,0 +1,5 @@
+<div class="next-game-list">
+  @for (game of nextGames(); track $index) {
+    <app-next-game-card [nextGame]="game" [compact]="true" />
+  }
+</div>

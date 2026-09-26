@@ -1,14 +1,15 @@
 import { Component, computed, effect, inject, input, model } from '@angular/core';
-import { TeamsRepository } from './teams.repository';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { NextGameCardsComponent } from '../component/next-game-cards/next-game-cards.component';
 import { SkeletonComponent } from '../component/skeleton';
-import { TeamId } from '../shared/teamId';
 import { GamesTable } from '../results/component/games/games-table/games-table';
-import { Game } from '../shared/game';
 import { checkTeamName } from '../results/team.utils';
+import { Game } from '../shared/game';
+import { TeamId } from '../shared/teamId';
+import { TeamsRepository } from './teams.repository';
 
 @Component({
-  imports: [SkeletonComponent, GamesTable],
+  imports: [SkeletonComponent, GamesTable, NextGameCardsComponent],
   selector: 'app-team-select',
   styleUrl: './teams-list.scss',
   templateUrl: './teams-list.html',

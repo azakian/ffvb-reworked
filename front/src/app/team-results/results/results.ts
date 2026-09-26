@@ -1,5 +1,3 @@
-import { convertToGame, convertToWeekGames, Game, WeekGames } from '../shared/game';
-import { convertToRankings, Ranking } from '../shared/ranking';
 import {
   convertToPool,
   ExternalGame,
@@ -9,6 +7,8 @@ import {
   ExternalWeekGames,
   Pool,
 } from '../shared/external';
+import { convertToGame, convertToWeekGames, Game, WeekGames } from '../shared/game';
+import { convertToRankings, Ranking } from '../shared/ranking';
 import { TeamId } from '../shared/teamId';
 
 // Retour de la fonction get_full_pool_summary()

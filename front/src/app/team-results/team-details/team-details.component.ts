@@ -34,8 +34,21 @@ export class TeamDetailsComponent {
 
   private getResults(teamName: string, game: Game) {
     const isHome = teamName.localeCompare(game.team1Name, undefined, { sensitivity: 'base' }) === 0;
-    const teamScore = isHome ? game.scores!.team1Score : game.scores!.team2Score;
     const opponent = isHome ? game.team2Name : game.team1Name;
+    if (game.isPostponed) {
+      return {
+        isHome,
+        opponent,
+        teamScore: 0,
+        opponentScore: 0,
+        isWin: false,
+        validSets: [],
+        date: game.date,
+        isPostponed: game.isPostponed,
+      };
+    }
+
+    const teamScore = isHome ? game.scores!.team1Score : game.scores!.team2Score;
     const opponentScore = isHome ? game.scores!.team2Score : game.scores!.team1Score;
     const isWin = teamScore > opponentScore;
 
@@ -46,17 +59,6 @@ export class TeamDetailsComponent {
       game.setsScore!.set4,
       game.setsScore!.set5,
     ].filter((set): set is string => Boolean(set));
-    //
-    // const teamSetScores = _validSets.map((set) => {
-    //   const [score1, score2] = set.split(':');
-    //   return isHome ? score1 : score2;
-    // });
-    //
-    // const opponentSetScores = _validSets.map((set) => {
-    //   const [score1, score2] = set.split(':');
-    //   return isHome ? score2 : score1;
-    // });
-
     return {
       isHome,
       opponent,
@@ -65,6 +67,7 @@ export class TeamDetailsComponent {
       isWin,
       validSets,
       date: game.date,
+      isPostponed: game.isPostponed,
     };
   }
 }

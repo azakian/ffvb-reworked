@@ -16,6 +16,7 @@ export interface Game {
     set4: string | null;
     set5: string | null;
   } | null;
+  isPostponed: boolean;
 }
 
 export interface WeekGames {
@@ -62,6 +63,7 @@ const convertGame = (externalGame: ExternalGame): Game => {
           set5: externalGame.set5,
         }
       : null,
+    isPostponed: externalGame.isPostponed,
   };
 };
 

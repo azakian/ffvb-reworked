@@ -2,22 +2,45 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
 
 :root {
+  /* Couleurs de base & surfaces */
   --bg: #0c0c0e;
+  --bg-transparent: rgba(12, 12, 14, 0);
   --surface: #141416;
   --surface-2: #1c1c1f;
   --surface-3: #242428;
   --border: rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Typographie & textes */
   --text: #f2f2f5;
   --text-2: #9999aa;
   --text-3: #55556a;
+  --text-muted: rgba(255, 255, 255, 0.28);
+
+  /* Couleurs d'accentuation */
   --accent: #00e5a0;
   --accent-dim: rgba(0, 229, 160, 0.12);
+  --accent-border: rgba(0, 229, 160, 0.2);
+  --accent-shadow: rgba(0, 229, 160, 0.2);
+
+  /* Résultats de match */
   --win: #22c55e;
   --win-bg: rgba(34, 197, 94, 0.12);
   --loss: #f43f5e;
   --loss-bg: rgba(244, 63, 94, 0.12);
 
+  /* Matchs en retard & avertissements */
+  --warning: #ff8c00;
+  --warning-subtext: rgba(255, 140, 0, 0.7);
+  --warning-border: rgba(255, 140, 0, 0.4);
+  --warning-bg-start: #2a1b12;
+  --warning-bg-end: #1f140e;
+
+  /* Composants spécifiques */
+  --match-card-bg-start: #0a1f18;
+  --match-card-bg-end: #0f1f1a;
+
+  /* Fontes */
   --font-ui: 'Outfit', sans-serif;
   --font-mono: 'DM Mono', monospace;
 }
@@ -41,6 +64,11 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }

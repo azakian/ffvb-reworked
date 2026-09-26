@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 20px 22px;
+  box-sizing: border-box;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  @media ((min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)) {
+    min-height: var(--card-min-height, auto);
+  }
+
+  &.variant-surface-2 {
+    background: var(--surface-2);
+  }
+
+  &.variant-warning {
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--warning-bg-start), var(--warning-bg-end));
+    border-color: var(--warning-border);
+  }
+}

@@ -1,0 +1,94 @@
+@if (gameResult().isPostponed) {
+  <app-card-shell variant="warning">
+    <div class="delayed-header">
+      <svg
+        class="warning-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+        ></path>
+        <line x1="12" y1="9" x2="12" y2="13"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+      <h3 class="delayed-title">
+        Match en retard · <span class="match-date">{{ gameResult().date }}</span>
+      </h3>
+    </div>
+
+    <p class="delayed-subtitle">Résultat à confirmer</p>
+
+    <div class="delayed-teams">
+      <div class="team align-left">
+        <p class="name">{{ gameResult().teamName }}</p>
+      </div>
+      <span class="vs">vs</span>
+      <div class="team align-right">
+        <p class="name">{{ gameResult().opponent }}</p>
+      </div>
+    </div>
+  </app-card-shell>
+} @else {
+  @let setsScore = gameResult().validSets ?? [];
+  @let isFifthSet = setsScore.length === 5;
+
+  <app-card-shell>
+    <div class="top-row" [class.has-sets]="setsScore.length > 0">
+      <div class="opponent-info">
+        <span
+          class="result-badge"
+          [class.win]="gameResult().isWin"
+          [class.loss]="!gameResult().isWin"
+        >
+          {{ gameResult().isWin ? 'V' : 'D' }}
+        </span>
+        <div class="text-details">
+          <p class="opponent-name">{{ gameResult().opponent }}</p>
+          <p class="match-date">{{ gameResult().date }}</p>
+        </div>
+      </div>
+
+      <span
+        class="global-score"
+        [class.win]="gameResult().isWin"
+        [class.loss]="!gameResult().isWin"
+      >
+        {{ `${gameResult().teamScore} - ${gameResult().opponentScore}` }}
+      </span>
+    </div>
+
+    @if (setsScore.length > 0) {
+      <div class="sets-row">
+        @for (setScore of setsScore; track $index; let si = $index) {
+          @let scores = setScore.split(':');
+          @let homeScore = +scores[0];
+          @let awayScore = +scores[1];
+          @let isLast = isFifthSet && si === 4;
+          @let teamWonSet = gameResult().isHome ? homeScore > awayScore : awayScore > homeScore;
+
+          <div class="set-chip" [class.is-fifth-set]="isLast">
+            <span
+              class="score"
+              [class.won]="gameResult().isHome && teamWonSet"
+              [class.lost]="gameResult().isHome && !teamWonSet"
+            >
+              {{ homeScore }}
+            </span>
+            <span
+              class="score"
+              [class.won]="!gameResult().isHome && teamWonSet"
+              [class.lost]="!gameResult().isHome && !teamWonSet"
+            >
+              {{ awayScore }}
+            </span>
+          </div>
+        }
+      </div>
+    }
+  </app-card-shell>
+}

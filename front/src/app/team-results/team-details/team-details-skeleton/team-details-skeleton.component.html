@@ -1,0 +1,13 @@
+<div class="skeleton-wrapper">
+  <app-skeleton width="80px" [height]="11" [radius]="4" />
+  <div style="margin-top: 8px"><app-skeleton width="180px" [height]="26" [radius]="6" /></div>
+  <div style="margin-top: 20px"><app-skeleton [height]="100" [radius]="18" /></div>
+  <div style="margin-top: 16px"><app-skeleton [height]="160" [radius]="18" /></div>
+  <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px">
+    <app-skeleton [height]="11" width="120px" [radius]="4" />
+    @for (i of [1, 2, 3]; track i) {
+      <app-skeleton [height]="58" [radius]="12" />
+    }
+  </div>
+  <div style="margin-top: 24px"><app-skeleton [height]="50" [radius]="14" /></div>
+</div>

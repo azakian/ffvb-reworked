@@ -1,170 +1,41 @@
 <div class="screen-container">
-  <div class="top-nav">
-    <button [routerLink]="'/teams'" class="back-btn">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path
-          d="M10 4L6 8l4 4"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-      <span>Accueil</span>
-    </button>
-  </div>
+  <app-top-nav [link]="'/teams'" [linkLabel]="'Accueil'" />
 
   @if (teamSummaryResource.isLoading()) {
-    <div class="skeleton-wrapper">
-      <app-skeleton width="80px" [height]="11" [radius]="4" />
-      <div style="margin-top: 8px"><app-skeleton width="180px" [height]="26" [radius]="6" /></div>
-      <div style="margin-top: 20px"><app-skeleton [height]="100" [radius]="18" /></div>
-      <div style="margin-top: 16px"><app-skeleton [height]="160" [radius]="18" /></div>
-      <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px">
-        <app-skeleton [height]="11" width="120px" [radius]="4" />
-        @for (i of [1, 2, 3]; track i) {
-          <app-skeleton [height]="58" [radius]="12" />
-        }
-      </div>
-      <div style="margin-top: 24px"><app-skeleton [height]="50" [radius]="14" /></div>
-    </div>
+    <app-team-details-skeleton />
   } @else if (teamSummaryResource.value(); as summary) {
     <div class="title-section">
       <p class="subtitle">{{ summary.poolName }}</p>
       <h1 class="main-title">{{ summary.teamName }}</h1>
     </div>
 
-    <!-- Banner Rank -->
-    <div class="rank-banner">
-      <div class="banner-flex">
-        <div>
-          <p class="banner-label">Classement</p>
-          <div class="rank-val">
-            <span class="rank-num">#{{ summary.ranking.teamRanking }}</span>
-            <span class="rank-unit">place</span>
-          </div>
-        </div>
-        <div class="rank-right">
-          <div class="pts-val">{{ summary.ranking.points }}<span class="pts-unit">pts</span></div>
-          <div class="summary-line">
-            <span class="win">{{ summary.ranking.won }}V</span> –
-            <span class="loss">{{ summary.ranking.lost }}D</span>
-            · {{ summary.ranking.played }} J
-          </div>
-        </div>
-      </div>
+    <!-- Wrapped in section-block to standardize margins -->
+    <div class="section-block">
+      <app-rank-card [ranking]="summary.ranking" />
     </div>
 
-    <!-- Next Match -->
-    @if (summary.nextGame; as nextGame) {
-      <div class="section-block">
-        <p class="section-title">Prochain match</p>
-        <app-next-game-card [nextGame]="nextGame" />
-      </div>
-    }
-
-    <!-- Results -->
-    @if (lastGames().length > 0) {
-      <div class="results-section">
-        <p class="section-title">Derniers résultats</p>
-
-        <div class="results-list">
-          @for (r of lastGames(); track $index) {
-            @if (r.isPostponed) {
-              <div class="result-card delayed">
-                <div class="delayed-header">
-                  <svg
-                    class="warning-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path
-                      d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                    ></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                  </svg>
-                  <h3 class="delayed-title">
-                    Match en retard · <span class="match-date">{{ r.date }}</span>
-                  </h3>
-                </div>
-
-                <p class="delayed-subtitle">Résultat à confirmer</p>
-
-                <div class="delayed-teams">
-                  <div class="team align-left">
-                    <p class="name">{{ summary.teamName }}</p>
-                  </div>
-                  <span class="vs">vs</span>
-                  <div class="team align-right">
-                    <p class="name">{{ r.opponent }}</p>
-                  </div>
-                </div>
-              </div>
-            } @else {
-              @let setsScore = r.validSets ?? [];
-              @let isFifthSet = setsScore.length === 5;
-
-              <div class="result-card">
-                <!-- Top row: badge + opponent + score global -->
-                <div class="top-row" [class.has-sets]="setsScore.length > 0">
-                  <div class="opponent-info">
-                    <span class="result-badge" [class.win]="r.isWin" [class.loss]="!r.isWin">
-                      {{ r.isWin ? 'V' : 'D' }}
-                    </span>
-                    <div class="text-details">
-                      <p class="opponent-name">{{ r.opponent }}</p>
-                      <p class="match-date">{{ r.date }}</p>
-                    </div>
-                  </div>
-
-                  <span class="global-score" [class.win]="r.isWin" [class.loss]="!r.isWin">
-                    {{ `${r.teamScore} - ${r.opponentScore}` }}
-                  </span>
-                </div>
-
-                <!-- Sets row -->
-                @if (setsScore.length > 0) {
-                  <div class="sets-row">
-                    @for (setScore of setsScore; track $index; let si = $index) {
-                      @let scores = setScore.split(':');
-                      @let homeScore = +scores[0];
-                      @let awayScore = +scores[1];
-
-                      @let isLast = isFifthSet && si === 4;
-                      @let teamWonSet = r.isHome ? homeScore > awayScore : awayScore > homeScore;
-
-                      <div class="set-chip" [class.is-fifth-set]="isLast">
-                        <span
-                          class="score"
-                          [class.won]="r.isHome && teamWonSet"
-                          [class.lost]="r.isHome && !teamWonSet"
-                        >
-                          {{ homeScore }}
-                        </span>
-                        <span
-                          class="score"
-                          [class.won]="!r.isHome && teamWonSet"
-                          [class.lost]="!r.isHome && !teamWonSet"
-                        >
-                          {{ awayScore }}
-                        </span>
-                      </div>
-                    }
-                  </div>
-                }
-              </div>
-            }
-          }
+    <div class="team-details">
+      @if (summary.nextGame; as nextGame) {
+        <div class="section-block">
+          <p class="section-title">Prochain match</p>
+          <div class="results-list">
+            <app-next-game-card [nextGame]="nextGame" />
+          </div>
         </div>
-      </div>
-    }
+      }
 
-    <!-- CTA -->
+      @if (lastGames().length > 0) {
+        <div class="results-section">
+          <p class="section-title">Derniers résultats</p>
+          <div class="results-list">
+            @for (gameResult of lastGames(); track $index) {
+              <app-game-result-card [gameResult]="gameResult" />
+            }
+          </div>
+        </div>
+      }
+    </div>
+
     <div class="cta-wrapper">
       <button [routerLink]="'results'" class="cta-btn">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

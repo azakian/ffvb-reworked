@@ -2,13 +2,23 @@ import { Component, computed, inject, input } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { NextGameCardComponent } from '../component/next-game-card/next-game-card.component';
-import { SkeletonComponent } from '../component/skeleton';
+import { TopNavComponent } from '../component/top-nav/top-nav.component';
 import { Game } from '../shared/game';
 import { TeamId } from '../shared/teamId';
+import { GameResultCardComponent } from './game-result-card/game-result-card.component';
+import { RankCardComponent } from './rank-card/rank-card.component';
+import { TeamDetailsSkeletonComponent } from './team-details-skeleton/team-details-skeleton.component';
 import { TeamDetailsRepository } from './team-details.repository';
 
 @Component({
-  imports: [SkeletonComponent, RouterLink, NextGameCardComponent],
+  imports: [
+    RouterLink,
+    NextGameCardComponent,
+    TopNavComponent,
+    TeamDetailsSkeletonComponent,
+    RankCardComponent,
+    GameResultCardComponent,
+  ],
   selector: 'app-team',
   styleUrl: './team-details.component.scss',
   templateUrl: './team-details.component.html',
@@ -38,6 +48,7 @@ export class TeamDetailsComponent {
     const opponent = isHome ? game.team2Name : game.team1Name;
     if (game.isPostponed) {
       return {
+        teamName,
         isHome,
         opponent,
         teamScore: 0,
@@ -61,6 +72,7 @@ export class TeamDetailsComponent {
       game.setsScore!.set5,
     ].filter((set): set is string => Boolean(set));
     return {
+      teamName,
       isHome,
       opponent,
       teamScore,

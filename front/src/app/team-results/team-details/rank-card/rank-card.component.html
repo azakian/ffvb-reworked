@@ -1,0 +1,19 @@
+<app-card-shell variant="surface-2">
+  <div class="banner-flex">
+    <div>
+      <p class="banner-label">Classement</p>
+      <div class="rank-val">
+        <span class="rank-num">#{{ ranking().teamRanking }}</span>
+        <span class="rank-unit">place</span>
+      </div>
+    </div>
+    <div class="rank-right">
+      <div class="pts-val">{{ ranking().points }}<span class="pts-unit">pts</span></div>
+      <div class="summary-line">
+        <span class="win">{{ ranking().won }}V</span> –
+        <span class="loss">{{ ranking().lost }}D</span>
+        · {{ ranking().played }} J
+      </div>
+    </div>
+  </div>
+</app-card-shell>

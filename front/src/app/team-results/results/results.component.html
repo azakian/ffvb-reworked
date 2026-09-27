@@ -1,20 +1,7 @@
 <div class="screen-container">
   @if (isPhoneDevice()) {
     <!-- Top nav button -->
-    <div class="top-nav">
-      <button [routerLink]="`..`" class="back-btn">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M10 4L6 8l4 4"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        Équipe
-      </button>
-    </div>
+    <app-top-nav [link]="'..'" [linkLabel]="'Équipe'" />
   }
 
   <div class="title-section">

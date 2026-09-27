@@ -1,15 +1,16 @@
 import { Component, computed, effect, inject, input, linkedSignal, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { TeamId } from '../shared/teamId';
-import { ResultRepository } from './result.repository';
-import { SkeletonComponent } from '../component/skeleton';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { SkeletonComponent } from '../component/skeleton';
+import { TopNavComponent } from '../component/top-nav/top-nav.component';
+import { TeamId } from '../shared/teamId';
 import { SeasonFilter } from './component/filters/season-filter/season-filter';
 import { TeamFilter } from './component/filters/team-filter/team-filter';
-import { RankingComponent } from './component/ranking/ranking.component';
 import { GamesComponent } from './component/games/games.component';
+import { RankingComponent } from './component/ranking/ranking.component';
 import { TeamPool } from './pool';
-import { RouterLink } from '@angular/router';
+import { ResultRepository } from './result.repository';
 
 @Component({
   imports: [
@@ -21,6 +22,7 @@ import { RouterLink } from '@angular/router';
     RankingComponent,
     GamesComponent,
     RouterLink,
+    TopNavComponent,
   ],
   selector: 'app-results',
   styleUrl: './results.component.scss',

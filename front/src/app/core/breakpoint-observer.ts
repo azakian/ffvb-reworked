@@ -1,6 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { inject, PLATFORM_ID, Service } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
 
 @Service()
 export class BreakpointObserver {

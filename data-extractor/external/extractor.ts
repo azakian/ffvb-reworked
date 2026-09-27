@@ -1,18 +1,18 @@
 // --- Helper pour décoder les entités HTML ---
-import { GameByWeek, Ranking } from './types';
+import { GameByWeek, Ranking } from "./types";
 
 function unescapeHtml(str: string): string {
   return str
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&eacute;/g, 'é')
-    .replace(/&egrave;/g, 'è')
-    .replace(/&agrave;/g, 'à')
-    .replace(/&ccedil;/g, 'ç');
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&eacute;/g, "é")
+    .replace(/&egrave;/g, "è")
+    .replace(/&agrave;/g, "à")
+    .replace(/&ccedil;/g, "ç");
 }
 
 // --- Classe principale DataExtractor ---
@@ -25,7 +25,7 @@ export class DataExtractor {
   public gameByWeeks: GameByWeek[];
 
   constructor(htmlStr: string) {
-    console.log('Extracting data from html...');
+    console.log("Extracting data from html...");
     this.htmlRankingTable = this.extractTableByIndex(htmlStr, 2);
     this.htmlMatchTable = this.extractTableByIndex(htmlStr, 3);
 
@@ -38,7 +38,8 @@ export class DataExtractor {
     const rows = this.extractRows(this.htmlRankingTable);
 
     // Discriminant Option 2 : Si la première ligne comporte moins de 15 colonnes, la saison n'a pas démarré
-    const isUnstartedSeason = rows.length === 0 || this.extractCells(rows[0]).length < 15;
+    const isUnstartedSeason =
+      rows.length === 0 || this.extractCells(rows[0]).length < 15;
 
     if (isUnstartedSeason) {
       return this.extractRankingForUnstartedSeason(rows, ranking);
@@ -68,9 +69,9 @@ export class DataExtractor {
         win3_0: columns[7],
         win3_1: columns[8],
         win3_2: columns[9],
-        loss0_3: columns[10],
+        loss2_3: columns[10],
         loss1_3: columns[11],
-        loss2_3: columns[12],
+        loss0_3: columns[12],
         wonSets: columns[13],
         lostSets: columns[14],
       };
@@ -86,7 +87,7 @@ export class DataExtractor {
     for (const row of rows) {
       const cells = this.extractCells(row);
       for (const cell of cells) {
-        if (cell && !/^\d+$/.test(cell) && !cell.includes('Poule')) {
+        if (cell && !/^\d+$/.test(cell) && !cell.includes("Poule")) {
           teamNames.push(cell);
         }
       }
@@ -96,19 +97,19 @@ export class DataExtractor {
       const rankingData: Ranking = {
         teamRanking: String(idx + 1),
         teamName,
-        points: '0',
-        playedMatch: '0',
-        wonMatch: '0',
-        lostMatch: ' 0',
-        dnf: '0',
-        win3_0: '0',
-        win3_1: '0',
-        win3_2: '0',
-        loss0_3: '0',
-        loss1_3: '0',
-        loss2_3: '0',
-        wonSets: '0',
-        lostSets: '0',
+        points: "0",
+        playedMatch: "0",
+        wonMatch: "0",
+        lostMatch: " 0",
+        dnf: "0",
+        win3_0: "0",
+        win3_1: "0",
+        win3_2: "0",
+        loss0_3: "0",
+        loss1_3: "0",
+        loss2_3: "0",
+        wonSets: "0",
+        lostSets: "0",
       };
       ranking.push(rankingData);
     });
@@ -137,8 +138,8 @@ export class DataExtractor {
         const team1 = columns[3];
         const team2 = columns[5];
 
-        const score1Raw = columns.length > 6 ? columns[6].trim() : '';
-        const score2Raw = columns.length > 7 ? columns[7].trim() : '';
+        const score1Raw = columns.length > 6 ? columns[6].trim() : "";
+        const score2Raw = columns.length > 7 ? columns[7].trim() : "";
 
         let team1Score: string;
         let team2Score: string;
@@ -150,19 +151,19 @@ export class DataExtractor {
         if (/^\d+$/.test(score1Raw) && /^\d+$/.test(score2Raw)) {
           team1Score = score1Raw;
           team2Score = score2Raw;
-          const setsStr = columns.length > 8 ? columns[8] : '';
+          const setsStr = columns.length > 8 ? columns[8] : "";
           setsScore = setsStr
-            .split(',')
+            .split(",")
             .map((s) => s.trim())
             .filter((s) => s.length > 0);
           isPlayed = true;
-          location = '';
+          location = "";
         } else {
-          team1Score = '0';
-          team2Score = '0';
+          team1Score = "0";
+          team2Score = "0";
           setsScore = [];
           isPlayed = false;
-          location = columns.length > 7 ? columns[7] : '';
+          location = columns.length > 7 ? columns[7] : "";
         }
 
         currentWeek.games.push({
@@ -192,7 +193,7 @@ export class DataExtractor {
     }
 
     if (index >= tableStarts.length) {
-      return '';
+      return "";
     }
 
     const start = tableStarts[index];
@@ -203,7 +204,7 @@ export class DataExtractor {
     tagRegex.lastIndex = start;
 
     while ((match = tagRegex.exec(htmlStr)) !== null) {
-      if (!match[0].startsWith('</')) {
+      if (!match[0].startsWith("</")) {
         depth++;
       } else {
         depth--;
@@ -223,12 +224,14 @@ export class DataExtractor {
   }
 
   private cellText(cellHtml: string): string {
-    const stripped = cellHtml.replace(/<[^>]+>/g, '');
+    const stripped = cellHtml.replace(/<[^>]+>/g, "");
     return unescapeHtml(stripped).trim();
   }
 
   private extractCells(rowHtml: string): string[] {
-    const matches = Array.from(rowHtml.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi));
+    const matches = Array.from(
+      rowHtml.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi),
+    );
     return matches.map((m) => this.cellText(m[1]));
   }
 }

@@ -57,7 +57,7 @@ $breakpoint-desktop: 1100px; // Le breakpoint utilisé dans le code React
       //padding-top: $topbar-height;
 
       // La magie du GRID : Colonne 1 (260px) | Colonne 2 (380px) | Colonne 3 (Le reste)
-      grid-template-columns: 350px 1fr;
+      grid-template-columns: 500px 1fr;
 
       // On bloque la hauteur pour avoir un scroll interne dans les colonnes
       //grid-template-rows: calc(100vh - #{$topbar-height});

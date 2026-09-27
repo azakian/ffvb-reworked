@@ -64,7 +64,7 @@
         } @else if (game.isPostponed) {
           <p class="postponed-summary">Match en retard · Résultat à confirmer</p>
         } @else {
-          <p class="upcoming">{{ game.time }}</p>
+          <p class="upcoming">{{ game.time }} - {{ game.location }}</p>
         }
       </div>
     }

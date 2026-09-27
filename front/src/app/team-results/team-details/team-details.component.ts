@@ -46,7 +46,7 @@ export class TeamDetailsComponent {
   private getResults(teamName: string, game: Game) {
     const isHome = teamName.localeCompare(game.team1Name, undefined, { sensitivity: 'base' }) === 0;
     const opponent = isHome ? game.team2Name : game.team1Name;
-    if (game.isPostponed) {
+    if (game.isPostponed || game.isLate) {
       return {
         teamName,
         isHome,
@@ -57,6 +57,7 @@ export class TeamDetailsComponent {
         validSets: [],
         date: game.date,
         isPostponed: game.isPostponed,
+        isLate: game.isLate,
       };
     }
 
@@ -81,6 +82,7 @@ export class TeamDetailsComponent {
       validSets,
       date: game.date,
       isPostponed: game.isPostponed,
+      isLate: game.isLate,
     };
   }
 }

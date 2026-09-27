@@ -18,5 +18,6 @@ export class GameResultCardComponent {
     validSets: string[];
     date: string;
     isPostponed: boolean;
+    isLate: boolean;
   }>();
 }

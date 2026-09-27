@@ -17,6 +17,7 @@ export interface ExternalGame {
   pool_id: number;
   modified_at: string;
   isPostponed: boolean;
+  isLate: boolean;
 }
 
 export interface ExternalWeekGames {

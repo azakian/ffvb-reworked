@@ -1,6 +1,6 @@
 import { ExternalGame, ExternalPool, ExternalRanking, ExternalTeam } from '../shared/external';
-import { convertToRanking, Ranking } from '../shared/ranking';
 import { convertToGame, convertToGames, Game } from '../shared/game';
+import { convertToRanking, Ranking } from '../shared/ranking';
 
 export interface ExternalTeamDetails {
   team: ExternalTeam;

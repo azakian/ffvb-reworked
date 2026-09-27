@@ -1,4 +1,5 @@
-@if (gameResult().isPostponed) {
+@let game = gameResult();
+@if (game.isPostponed || game.isLate) {
   <app-card-shell variant="warning">
     <div class="delayed-header">
       <svg
@@ -17,7 +18,11 @@
         <line x1="12" y1="17" x2="12.01" y2="17"></line>
       </svg>
       <h3 class="delayed-title">
-        Match en retard · <span class="match-date">{{ gameResult().date }}</span>
+        @if (game.isPostponed) {
+          Match en retard · <span class="match-date">{{ game.date }}</span>
+        } @else if (game.isLate) {
+          <span class="match-date">{{ game.date }}</span>
+        }
       </h3>
     </div>
 
@@ -25,40 +30,32 @@
 
     <div class="delayed-teams">
       <div class="team align-left">
-        <p class="name">{{ gameResult().teamName }}</p>
+        <p class="name">{{ game.teamName }}</p>
       </div>
       <span class="vs">vs</span>
       <div class="team align-right">
-        <p class="name">{{ gameResult().opponent }}</p>
+        <p class="name">{{ game.opponent }}</p>
       </div>
     </div>
   </app-card-shell>
 } @else {
-  @let setsScore = gameResult().validSets ?? [];
+  @let setsScore = game.validSets ?? [];
   @let isFifthSet = setsScore.length === 5;
 
   <app-card-shell>
     <div class="top-row" [class.has-sets]="setsScore.length > 0">
       <div class="opponent-info">
-        <span
-          class="result-badge"
-          [class.win]="gameResult().isWin"
-          [class.loss]="!gameResult().isWin"
-        >
-          {{ gameResult().isWin ? 'V' : 'D' }}
+        <span class="result-badge" [class.win]="game.isWin" [class.loss]="!game.isWin">
+          {{ game.isWin ? 'V' : 'D' }}
         </span>
         <div class="text-details">
-          <p class="opponent-name">{{ gameResult().opponent }}</p>
-          <p class="match-date">{{ gameResult().date }}</p>
+          <p class="opponent-name">{{ game.opponent }}</p>
+          <p class="match-date">{{ game.date }}</p>
         </div>
       </div>
 
-      <span
-        class="global-score"
-        [class.win]="gameResult().isWin"
-        [class.loss]="!gameResult().isWin"
-      >
-        {{ `${gameResult().teamScore} - ${gameResult().opponentScore}` }}
+      <span class="global-score" [class.win]="game.isWin" [class.loss]="!game.isWin">
+        {{ `${game.teamScore} - ${game.opponentScore}` }}
       </span>
     </div>
 
@@ -69,20 +66,20 @@
           @let homeScore = +scores[0];
           @let awayScore = +scores[1];
           @let isLast = isFifthSet && si === 4;
-          @let teamWonSet = gameResult().isHome ? homeScore > awayScore : awayScore > homeScore;
+          @let teamWonSet = game.isHome ? homeScore > awayScore : awayScore > homeScore;
 
           <div class="set-chip" [class.is-fifth-set]="isLast">
             <span
               class="score"
-              [class.won]="gameResult().isHome && teamWonSet"
-              [class.lost]="gameResult().isHome && !teamWonSet"
+              [class.won]="game.isHome && teamWonSet"
+              [class.lost]="game.isHome && !teamWonSet"
             >
               {{ homeScore }}
             </span>
             <span
               class="score"
-              [class.won]="!gameResult().isHome && teamWonSet"
-              [class.lost]="!gameResult().isHome && !teamWonSet"
+              [class.won]="!game.isHome && teamWonSet"
+              [class.lost]="!game.isHome && !teamWonSet"
             >
               {{ awayScore }}
             </span>

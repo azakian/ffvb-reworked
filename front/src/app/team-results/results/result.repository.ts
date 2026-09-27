@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { from, map, Observable, of, switchMap, throwError } from 'rxjs';
-import { convertToResults, ExternalResults, Results } from './results';
 import { SUPABASE_CLIENT } from '../../core/supabase';
 import { convertToTeamPools, ExternalTeamPool, TeamPool } from './pool';
+import { convertToResults, ExternalResults, Results } from './results';
 
 @Injectable()
 export class ResultRepository {

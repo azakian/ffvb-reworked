@@ -10,7 +10,7 @@
         [class.highlight-win]="game.gameDetail.isWon"
         [class.highlight-loss]="game.gameDetail.isLost"
         [class.highlight-not-played]="game.gameDetail.highlight"
-        [class.highlight-postponed]="game.isPostponed"
+        [class.highlight-postponed]="game.isPostponed || game.isLate"
       >
         <!-- Grid Teams & Main Score -->
         <div class="grid-match">
@@ -27,7 +27,7 @@
               >
                 {{ game.scores!.team1Score }} – {{ game.scores!.team2Score }}
               </span>
-            } @else if (game.isPostponed) {
+            } @else if (game.isPostponed || game.isLate) {
               <div class="delayed-badge">
                 <svg
                   class="warning-icon"
@@ -44,7 +44,13 @@
                   <line x1="12" y1="9" x2="12" y2="13"></line>
                   <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
-                <span class="delayed-tag">Reporté</span>
+                <span class="delayed-tag">
+                  @if (game.isLate) {
+                    {{ game.date }}
+                  } @else {
+                    Reporté
+                  }
+                </span>
               </div>
             } @else {
               <span class="time-val">{{ game.date }}</span>
@@ -63,6 +69,8 @@
           </p>
         } @else if (game.isPostponed) {
           <p class="postponed-summary">Match en retard · Résultat à confirmer</p>
+        } @else if (game.isLate) {
+          <p class="postponed-summary">Résultat à confirmer</p>
         } @else {
           <p class="upcoming">{{ game.time }} - {{ game.location }}</p>
         }

@@ -45,10 +45,10 @@
                   <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
                 <span class="delayed-tag">
-                  @if (game.isLate) {
-                    {{ game.date }}
-                  } @else {
+                  @if (game.isPostponed) {
                     Reporté
+                  } @else if (game.isLate) {
+                    {{ game.date }}
                   }
                 </span>
               </div>

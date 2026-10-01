@@ -19,7 +19,10 @@ export class RankingComponent {
     this.expandedRow.update((curr) => (curr === rank ? null : rank));
   }
   public getRatio(setsW: number, setsL: number): string {
-    return setsL === 0 ? '0' : (setsW / setsL).toFixed(2);
+    if (setsW === 0 && setsL === 0) {
+      return '0';
+    }
+    return setsL === 0 ? 'MAX' : (setsW / setsL).toFixed(2);
   }
 
   protected readonly checkTeamName = checkTeamName;

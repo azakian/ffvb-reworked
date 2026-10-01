@@ -67,6 +67,11 @@
           <p class="sets-summary">
             {{ game.setsScore.allScore.join(' / ') }}
           </p>
+          @if (displayGameDate()) {
+            <p class="game-date">
+              {{ game.date }}
+            </p>
+          }
         } @else if (game.isPostponed) {
           <p class="postponed-summary">Match en retard · Résultat à confirmer</p>
         } @else if (game.isLate) {

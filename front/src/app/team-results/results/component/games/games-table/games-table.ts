@@ -8,6 +8,7 @@ import { Game } from '../../../../shared/game';
   templateUrl: './games-table.html',
 })
 export class GamesTable {
+  readonly displayGameDate = input<boolean>(false);
   readonly games = input.required<
     (Game & {
       gameDetail: {

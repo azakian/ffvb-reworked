@@ -63,8 +63,7 @@ export class TeamsList {
     return teamDescriptions
       .map((teamDescription) => teamDescription.lastGame)
       .filter((game) => !!game)
-      .map((game) => this.convertToGameWithDetail(this.teamNames(), game))
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      .map((game) => this.convertToGameWithDetail(this.teamNames(), game));
   });
 
   public readonly nextGames = computed(() => {
@@ -76,8 +75,7 @@ export class TeamsList {
     return teamDescriptions
       .map((teamDescription) => teamDescription.nextGame)
       .filter((game) => !!game)
-      .map((game) => this.convertToGameWithDetail(this.teamNames(), game))
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      .map((game) => this.convertToGameWithDetail(this.teamNames(), game));
   });
 
   private readonly teamNames = computed(() => {

@@ -1,7 +1,6 @@
 import { Component, computed, effect, inject, input, linkedSignal, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { SkeletonComponent } from '../component/skeleton';
 import { TopNavComponent } from '../component/top-nav/top-nav.component';
 import { TeamId } from '../shared/teamId';
@@ -14,14 +13,12 @@ import { ResultRepository } from './result.repository';
 
 @Component({
   imports: [
-    RouterLink,
     SkeletonComponent,
     FormsModule,
     SeasonFilter,
     TeamFilter,
     RankingComponent,
     GamesComponent,
-    RouterLink,
     TopNavComponent,
   ],
   selector: 'app-results',

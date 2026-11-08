@@ -1,7 +1,7 @@
 // TerminalPresenter.ts
 
+import { Displayer } from "../../shared/displayer";
 import { ExternalData, GameByWeek, Ranking } from "../external/types";
-import { Displayer } from "./displayer";
 
 export class TerminalPresenter implements Displayer {
   public present(data: ExternalData): void {

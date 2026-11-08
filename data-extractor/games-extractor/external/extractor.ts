@@ -1,20 +1,6 @@
 // --- Helper pour décoder les entités HTML ---
 import { GameByWeek, Ranking } from "./types";
 
-function unescapeHtml(str: string): string {
-  return str
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&eacute;/g, "é")
-    .replace(/&egrave;/g, "è")
-    .replace(/&agrave;/g, "à")
-    .replace(/&ccedil;/g, "ç");
-}
-
 // --- Classe principale DataExtractor ---
 
 export class DataExtractor {

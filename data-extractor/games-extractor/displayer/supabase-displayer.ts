@@ -1,6 +1,6 @@
-import { SupabaseClient } from '@supabase/supabase-js';
-import { ExternalData } from '../external/types';
-import { Displayer } from './displayer';
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Displayer } from "../../shared/displayer";
+import { ExternalData } from "../external/types";
 
 export class SupabasePresenter implements Displayer {
   constructor(private readonly supabase: SupabaseClient) {}
@@ -14,19 +14,19 @@ export class SupabasePresenter implements Displayer {
     const rankingsToInsert = data.ranking.map((r) => ({
       team_name: r.teamName,
       team_ranking: parseInt(r.teamRanking, 10),
-      points: parseInt(r.points || '0', 10),
-      played: parseInt(r.playedMatch || '0', 10),
-      won: parseInt(r.wonMatch || '0', 10),
-      lost: parseInt(r.lostMatch || '0', 10),
-      dnf: parseInt(r.dnf || '0', 10),
-      won3_0: parseInt(r.win3_0 || '0', 10),
-      won3_1: parseInt(r.win3_1 || '0', 10),
-      won3_2: parseInt(r.win3_2 || '0', 10),
-      lost0_3: parseInt(r.loss0_3 || '0', 10),
-      lost1_3: parseInt(r.loss1_3 || '0', 10),
-      lost2_3: parseInt(r.loss2_3 || '0', 10),
-      won_sets: parseInt(r.wonSets || '0', 10),
-      lost_sets: parseInt(r.lostSets || '0', 10),
+      points: parseInt(r.points || "0", 10),
+      played: parseInt(r.playedMatch || "0", 10),
+      won: parseInt(r.wonMatch || "0", 10),
+      lost: parseInt(r.lostMatch || "0", 10),
+      dnf: parseInt(r.dnf || "0", 10),
+      won3_0: parseInt(r.win3_0 || "0", 10),
+      won3_1: parseInt(r.win3_1 || "0", 10),
+      won3_2: parseInt(r.win3_2 || "0", 10),
+      lost0_3: parseInt(r.loss0_3 || "0", 10),
+      lost1_3: parseInt(r.loss1_3 || "0", 10),
+      lost2_3: parseInt(r.loss2_3 || "0", 10),
+      won_sets: parseInt(r.wonSets || "0", 10),
+      lost_sets: parseInt(r.lostSets || "0", 10),
     }));
 
     const payload = {
@@ -36,9 +36,9 @@ export class SupabasePresenter implements Displayer {
       p_rankings_data: rankingsToInsert,
     };
 
-    console.log('Ranking payload', payload);
+    console.log("Ranking payload", payload);
 
-    const { error } = await this.supabase.rpc('upsert_rankings', payload);
+    const { error } = await this.supabase.rpc("upsert_rankings", payload);
     if (error) throw new Error(`[Rankings] ${error.message}`);
   }
 
@@ -50,8 +50,8 @@ export class SupabasePresenter implements Displayer {
         time: g.time || null,
         team1: g.team1,
         team2: g.team2,
-        team1_score: g.team1Score !== '' ? parseInt(g.team1Score, 10) : null,
-        team2_score: g.team2Score !== '' ? parseInt(g.team2Score, 10) : null,
+        team1_score: g.team1Score !== "" ? parseInt(g.team1Score, 10) : null,
+        team2_score: g.team2Score !== "" ? parseInt(g.team2Score, 10) : null,
         set1: g.setsScore[0] || null,
         set2: g.setsScore[1] || null,
         set3: g.setsScore[2] || null,
@@ -68,15 +68,15 @@ export class SupabasePresenter implements Displayer {
       p_games_data: gamesToInsert,
     };
 
-    console.log('Games payload', payload);
+    console.log("Games payload", payload);
 
-    const { error } = await this.supabase.rpc('upsert_games', payload);
+    const { error } = await this.supabase.rpc("upsert_games", payload);
     if (error) throw new Error(`[Games] ${error.message}`);
   }
 
   private formatDate(frenchDate: string): string | null {
     if (!frenchDate) return null;
-    const parts = frenchDate.split('/');
+    const parts = frenchDate.split("/");
     if (parts.length === 3) {
       const year = parts[2].length === 2 ? `20${parts[2]}` : parts[2];
       return `${year}-${parts[1]}-${parts[0]}`;

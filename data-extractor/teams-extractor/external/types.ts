@@ -3,12 +3,14 @@ export interface ExternalTeamEntry {
   codent: string;
   poolCode: string;
   poolName: string;
+  poolUrl: string;
   teamName: string;
 }
 
 export interface ExternalPool {
   code: string;
   name: string;
+  url: string;
 }
 
 export interface ExternalTeam {

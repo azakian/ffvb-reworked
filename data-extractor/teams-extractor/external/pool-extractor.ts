@@ -1,11 +1,16 @@
 import { cleanHtml } from "../../shared/clean-html";
+import { buildCalendrierUrl } from "./data-providers";
 import { ExternalPool } from "./types";
 
 export class PoolExtractor {
   private readonly poolsHtml: string;
   readonly pools: ExternalPool[];
 
-  constructor(html: string) {
+  constructor(
+    html: string,
+    private readonly season: string,
+    private readonly codent: string,
+  ) {
     // ÉTAPE 1 : Extraire uniquement le sous-arbre HTML du tableau des compétitions.
     // Gère "Accès direct aux Compétitions du Comité Départemental", "de la Ligue Régionale", etc.
     const tableMatch = html.match(
@@ -48,6 +53,7 @@ export class PoolExtractor {
     return Array.from(poulesMap.entries()).map(([code, name]) => ({
       code,
       name,
+      url: buildCalendrierUrl(this.season, this.codent, code),
     }));
   }
 }

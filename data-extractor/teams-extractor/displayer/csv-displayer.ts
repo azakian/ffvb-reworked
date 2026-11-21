@@ -14,11 +14,12 @@ export class TeamCsvDisplayer implements Displayer {
 
   private formatCsv(data: ExternalTeamEntry[]) {
     const columns: { header: string; key: keyof ExternalTeamEntry }[] = [
+      { header: "teamName", key: "teamName" },
       { header: "season", key: "saison" },
       { header: "codent", key: "codent" },
       { header: "poolCode", key: "poolCode" },
       { header: "poolName", key: "poolName" },
-      { header: "teamName", key: "teamName" },
+      { header: "poolUrl", key: "poolUrl" },
     ];
 
     const headerRow = columns.map((col) => col.header).join(",");

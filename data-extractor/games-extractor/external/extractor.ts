@@ -1,4 +1,4 @@
-// --- Helper pour décoder les entités HTML ---
+import { cleanHtml } from "../../shared/clean-html";
 import { GameByWeek, Ranking } from "./types";
 
 // --- Classe principale DataExtractor ---
@@ -210,8 +210,7 @@ export class DataExtractor {
   }
 
   private cellText(cellHtml: string): string {
-    const stripped = cellHtml.replace(/<[^>]+>/g, "");
-    return unescapeHtml(stripped).trim();
+    return cleanHtml(cellHtml);
   }
 
   private extractCells(rowHtml: string): string[] {
